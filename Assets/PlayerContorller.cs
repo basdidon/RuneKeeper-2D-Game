@@ -17,11 +17,17 @@ public class PlayerContorller : MonoBehaviour
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
+
+        for(int i = 0; i < 180; i++)
+        {
+            Debug.Log("sin " + i + " = " + Mathf.Cos((i*Mathf.PI)/180));
+        }
     }
 
     private void FixedUpdate()
     {
-        playerRigidbody.velocity = movement * speed*Time.deltaTime;
+        playerRigidbody.velocity = movement * speed;
+        DrawLineOfSight();
     }
 
 
@@ -79,5 +85,11 @@ public class PlayerContorller : MonoBehaviour
     {
         isCastSpell = context.action.triggered;
         Debug.Log(isCastSpell + context.phase.ToString());
+    }
+
+    //
+    public void DrawLineOfSight()
+    {
+
     }
 }

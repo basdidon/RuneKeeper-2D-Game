@@ -6,90 +6,63 @@ public class PlayerContorller : MonoBehaviour
     public enum CharacterState {Idle, Moving, Attacking, CastingSpell, Stun, Dead};
     public enum Direction {N, NW, W, SW, S, SE, E, NE};
 
+    public PlayerControls controls;
     public CharacterState playerState = CharacterState.Idle;
     public Direction playerDirection = Direction.S;
+    public Vector3 mousePosition;
     public Vector2 movement;
     public float speed = 10f;
     public Rigidbody2D playerRigidbody;
     public bool isCastSpell;
 
+    //cursor
+    //public Texture2D cursorTexture;
+    //public CursorMode cursorMode = CursorMode.ForceSoftware;
+    //public Vector2 hotSpot = Vector2.zero;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
 
     void Start()
     {
-        playerRigidbody = GetComponent<Rigidbody2D>();
+        controls.Player.RightMouseButton.performed += _ => OnRightMouseButtonClick();
 
-        for(int i = 0; i < 180; i++)
-        {
-            Debug.Log("sin " + i + " = " + Mathf.Cos((i*Mathf.PI)/180));
-        }
+        //Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+        playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        playerRigidbody.velocity = movement * speed;
-        DrawLineOfSight();
-    }
 
+    }
 
     //input
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnRightMouseButtonClick()
     {
-        movement = context.ReadValue<Vector2>();
+        mousePosition = controls.Player.MousePosition.ReadValue<Vector2>();
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition,Vector3.forward, 500);
+        Debug.DrawRay(mousePosition,Vector3.forward*500, Color.red);
+        if (hit.collider != null)
+        {
+            Debug.Log(hit.collider.name);
+            if(hit.collider.tag == "Enemy")
+            {
 
-        if(movement.x < 0)
-        {
-            if(movement.y < 0)
-            {
-                playerDirection = Direction.SW;
-            }else if( movement.y > 0)
-            {
-                playerDirection = Direction.NW;
-            }
-            else
-            {
-                playerDirection = Direction.W;
-            }
-        }else if(movement.x > 0)
-        {
-            if (movement.y < 0)
-            {
-                playerDirection = Direction.SE;
-            }
-            else if (movement.y > 0)
-            {
-                playerDirection = Direction.NE;
-            }
-            else
-            {
-                playerDirection = Direction.E;
             }
         }
-        else
-        {
-            if (movement.y < 0)
-            {
-                playerDirection = Direction.S;
-            }
-            else if (movement.y > 0)
-            {
-                playerDirection = Direction.N;
-            }
-            else
-            {
-                //do nothing
-            }
-        }
-    }
-
-    public void OnNormalAttack(InputAction.CallbackContext context)
-    {
-        isCastSpell = context.action.triggered;
-        Debug.Log(isCastSpell + context.phase.ToString());
-    }
-
-    //
-    public void DrawLineOfSight()
-    {
 
     }
 }

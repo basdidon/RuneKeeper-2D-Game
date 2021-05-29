@@ -6,163 +6,118 @@
             "id": "b3f62873-bb01-48a8-ba78-beeeb79af62f",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "RightMouseButton",
                     "type": "PassThrough",
                     "id": "432f440a-c4e7-4124-ae19-f01838e9ccf5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "PassThrough",
+                    "id": "f3058bb0-ab2c-4d0a-a4d3-4fcf5bd217fe",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Spell1",
-                    "type": "PassThrough",
-                    "id": "37c1edac-06df-4e8f-9d3e-b9de2f40292e",
-                    "expectedControlType": "Integer",
+                    "name": "Spell_1",
+                    "type": "Button",
+                    "id": "79fb4393-1a7e-4023-bc81-3189bd85e4a1",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": ""
+                },
+                {
+                    "name": "Spell_2",
+                    "type": "Button",
+                    "id": "07bbf0f7-30cc-4d12-800a-008e21e00b62",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Spell_3",
+                    "type": "Button",
+                    "id": "9d7c27be-201b-4074-8643-dbaa31d7e62f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Spell_ULT",
+                    "type": "Button",
+                    "id": "5e934d72-c207-4c14-a3c3-ec35a91a62e3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
                 {
-                    "name": "WASD",
-                    "id": "9ce2e931-939c-4b01-94db-aceb91eb0feb",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "9ee0b1a2-2c16-490f-9177-4dedbc8a4ef4",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
+                    "groups": "Mouse",
+                    "action": "MousePosition",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "4c7f447c-5ceb-49c4-b26c-d91115e767ef",
+                    "name": "",
+                    "id": "8f0cbed8-6b1c-4fcf-8d20-dcc11636d2d6",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "RightMouseButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f09e515-dcf5-4063-8ac0-92d63a3b7ec5",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spell_1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad202e31-9d83-4d41-87bd-d2d3bc5951c7",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "25ad4997-e1a7-47b0-8425-2a4a3b1e5253",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "1b9a2a91-e7e3-4f67-a015-b48fcf7ce509",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "35032272-fbe7-4f0c-938b-4ea643341c0c",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "da31644a-f862-4d8f-981a-254caccdc1a3",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Movement",
+                    "groups": "",
+                    "action": "Spell_2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Arrows",
-                    "id": "1ebaa406-4af7-4969-b28e-029e82104886",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "ea2cff97-3eb3-4e09-a79d-ee590c2ea41c",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "c41ce2af-114b-4744-aad9-a05a9028e0cc",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "ecfc1eed-c9dd-4b2a-94c6-c8ab88fda9fe",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "59296b54-431b-430e-8e3a-d5ca23e07ff8",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "f6afc9ee-36b4-4f68-a35d-9170f9f17f90",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "f7c0ca7d-0d49-445c-9a4b-134a7565487d",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Spell1",
+                    "action": "Spell_3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "5e01fcf2-525b-4146-86e4-e003e3762cfc",
-                    "path": "<XInputController>/buttonWest",
+                    "id": "eb2fc46e-ab4e-4c13-ae37-79b39dd4cdeb",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Spell1",
+                    "groups": "",
+                    "action": "Spell_ULT",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -188,6 +143,17 @@
                 {
                     "devicePath": "<Gamepad>",
                     "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Mouse",
+            "bindingGroup": "Mouse",
+            "devices": [
+                {
+                    "devicePath": "<VirtualMouse>",
+                    "isOptional": false,
                     "isOR": false
                 }
             ]

@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Testing : MonoBehaviour
 {
+    public Grid grid;
     void Start()
     {
-        Grid grid = new Grid(3, 3,10f);
+        grid = new Grid(3, 5,1f);
+    }
+
+    private void FixedUpdate()
+    {
+        grid.DrawGridLine();
     }
 }

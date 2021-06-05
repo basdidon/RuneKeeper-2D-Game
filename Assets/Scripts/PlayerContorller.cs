@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+using System.Collections.Generic;
+
 
 public class PlayerContorller : MonoBehaviour
 {
@@ -15,9 +18,8 @@ public class PlayerContorller : MonoBehaviour
     public Rigidbody2D playerRigidbody;
     public bool isCastSpell;
 
-    public GameObject[] allEnemy;
-    public GameObject[] onSightEnemy;
-    public GameObject selectedEnemy;
+    public List<Enemy> onSightEnemy = new List<Enemy>();
+    public Enemy selectedEnemy;
     
 
     /*cursor
@@ -46,7 +48,7 @@ public class PlayerContorller : MonoBehaviour
         controls.Player.RightMouseButton.performed += _ => OnRightMouseButtonClick();
         controls.Player.Movement.performed += _ => OnMove();
         controls.Player.Interaction.performed += _ => OnInteraction();
-
+        controls.Player.Attack.performed += _ => OnAttack();
 
         //Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -58,6 +60,7 @@ public class PlayerContorller : MonoBehaviour
         Debug.DrawRay(transform.position, forward, Color.green);
         Debug.Log("Movement : " + controls.Player.Movement.phase);
         Debug.Log("Interaction : " + controls.Player.Interaction.phase);
+        Debug.Log("Attack : " + controls.Player.Attack.phase);
     }
 
     public void OnMove()
@@ -79,18 +82,46 @@ public class PlayerContorller : MonoBehaviour
         }
         else
         {
-            //continues here
+            FindNearestEnemy();
         }
     }
 
     public void OnCastspell()
     {
-
+        if (selectedEnemy != null)
+        {
+            Debug.Log("Cast Spell");
+        }
+        else
+        {
+            FindNearestEnemy();
+        }
     }
 
     public void OnQuickMove()
     {
+        if (selectedEnemy != null || movement == Vector2.zero)
+        {
+            //dash to facing direction
+        }
+        else
+        {
+            //dash to movement direction
+        }
+    }
 
+    private void FindNearestEnemy()
+    {
+        int minDistance = 100;
+        Enemy selectedEnemy = null;
+        for(int i = 0; i < onSightEnemy.Count; i++)
+        {
+            if (Vector2.Distance(onSightEnemy[i].transform.position, transform.position) < minDistance)
+            {
+                selectedEnemy = onSightEnemy[i];
+            }
+        }
+        this.selectedEnemy = selectedEnemy;
     }
 
     //input

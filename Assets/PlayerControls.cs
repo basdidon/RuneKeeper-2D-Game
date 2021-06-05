@@ -36,7 +36,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Spell_1"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""79fb4393-1a7e-4023-bc81-3189bd85e4a1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -65,6 +65,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""a4bdba19-b55a-41ae-86ae-10b5ff5ec664"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""7aa5e2e3-7bb6-4e8a-bbbd-4d7fc9b0e10d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold""
                 }
             ],
             ""bindings"": [
@@ -133,6 +149,94 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Spell_ULT"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""220543b0-342b-48ce-a577-dcaad4eb9140"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""1d4b8cb6-ad4a-4134-b9ad-d6704804a155"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""95aff561-fd39-4998-988a-7b3dfd7ca556"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""669e1ed3-16ac-449f-b1ef-dea07800dcbf"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""e267cac1-17f4-4dd3-aa3c-bf76d009a5a4"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""cb048a4c-d6d4-464f-8db7-793081100545"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8b9cab1-1774-4f23-8ee0-125a8925f81c"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b362d33e-4494-40fe-af0c-e5d0088b3413"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -181,6 +285,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Player_Spell_2 = m_Player.FindAction("Spell_2", throwIfNotFound: true);
         m_Player_Spell_3 = m_Player.FindAction("Spell_3", throwIfNotFound: true);
         m_Player_Spell_ULT = m_Player.FindAction("Spell_ULT", throwIfNotFound: true);
+        m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -236,6 +342,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Spell_2;
     private readonly InputAction m_Player_Spell_3;
     private readonly InputAction m_Player_Spell_ULT;
+    private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_Interaction;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -246,6 +354,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Spell_2 => m_Wrapper.m_Player_Spell_2;
         public InputAction @Spell_3 => m_Wrapper.m_Player_Spell_3;
         public InputAction @Spell_ULT => m_Wrapper.m_Player_Spell_ULT;
+        public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -273,6 +383,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Spell_ULT.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpell_ULT;
                 @Spell_ULT.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpell_ULT;
                 @Spell_ULT.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpell_ULT;
+                @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @Interaction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteraction;
+                @Interaction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteraction;
+                @Interaction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteraction;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -295,6 +411,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Spell_ULT.started += instance.OnSpell_ULT;
                 @Spell_ULT.performed += instance.OnSpell_ULT;
                 @Spell_ULT.canceled += instance.OnSpell_ULT;
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @Interaction.started += instance.OnInteraction;
+                @Interaction.performed += instance.OnInteraction;
+                @Interaction.canceled += instance.OnInteraction;
             }
         }
     }
@@ -334,5 +456,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnSpell_2(InputAction.CallbackContext context);
         void OnSpell_3(InputAction.CallbackContext context);
         void OnSpell_ULT(InputAction.CallbackContext context);
+        void OnMovement(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }

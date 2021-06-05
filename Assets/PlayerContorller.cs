@@ -15,10 +15,16 @@ public class PlayerContorller : MonoBehaviour
     public Rigidbody2D playerRigidbody;
     public bool isCastSpell;
 
-    //cursor
+    public GameObject[] allEnemy;
+    public GameObject[] onSightEnemy;
+    public GameObject selectedEnemy;
+    
+
+    /*cursor
     //public Texture2D cursorTexture;
     //public CursorMode cursorMode = CursorMode.ForceSoftware;
     //public Vector2 hotSpot = Vector2.zero;
+    */
 
     private void Awake()
     {
@@ -38,6 +44,9 @@ public class PlayerContorller : MonoBehaviour
     void Start()
     {
         controls.Player.RightMouseButton.performed += _ => OnRightMouseButtonClick();
+        controls.Player.Movement.performed += _ => OnMove();
+        controls.Player.Interaction.performed += _ => OnInteraction();
+
 
         //Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -47,6 +56,41 @@ public class PlayerContorller : MonoBehaviour
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
         Debug.DrawRay(transform.position, forward, Color.green);
+        Debug.Log("Movement : " + controls.Player.Movement.phase);
+        Debug.Log("Interaction : " + controls.Player.Interaction.phase);
+    }
+
+    public void OnMove()
+    {
+        movement = controls.Player.Movement.ReadValue<Vector2>();    
+    }
+
+    public void OnInteraction()
+    {
+        
+        Debug.Log("z");
+    }
+
+    public void OnAttack()
+    {
+        if(selectedEnemy != null)
+        {
+            Debug.Log("Do Attack");
+        }
+        else
+        {
+            //continues here
+        }
+    }
+
+    public void OnCastspell()
+    {
+
+    }
+
+    public void OnQuickMove()
+    {
+
     }
 
     //input
@@ -63,6 +107,10 @@ public class PlayerContorller : MonoBehaviour
             {
 
             }
+        }
+        else
+        {
+            
         }
     }
 }

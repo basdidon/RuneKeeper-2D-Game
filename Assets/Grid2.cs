@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid 
+public class Grid2 
 {
     //Grid size
     public int width;
@@ -10,7 +10,7 @@ public class Grid
     public float cellSize;
     public int[,] gridArray;
 
-    public Grid(int width,int hight,float cellSize)
+    public Grid2(int width,int hight,float cellSize)
     {
         this.width = width;
         this.hight = hight;

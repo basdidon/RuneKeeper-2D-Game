@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class PlayerContorller : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public enum CharacterState {Idle, Moving, Attacking, CastingSpell, Stun, Dead};
 
@@ -99,28 +99,16 @@ public class PlayerContorller : MonoBehaviour
         //Debug.Log("z");
     }
 
-    public void OnAttack()
+    public virtual void OnAttack()
     {
-        if(selectedEnemy != null)
-        {
-            //Debug.Log("Do Attack");
-        }
-        else
-        {
-            FindNearestEnemy();
-        }
+        if(selectedEnemy == null){ FindNearestEnemy();}
+        //Debug.Log("Do Attack");
     }
 
-    public void OnCastspell()
+    public virtual void OnCastspell()
     {
-        if (selectedEnemy != null)
-        {
-            Debug.Log("Cast Spell");
-        }
-        else
-        {
-            FindNearestEnemy();
-        }
+        if (selectedEnemy != null) { FindNearestEnemy();}
+        //Debug.Log("Cast Spell");
     }
 
     public void OnQuickMove()

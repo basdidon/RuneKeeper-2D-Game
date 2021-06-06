@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerSight : MonoBehaviour
 {
-    public PlayerContorller playerContorller;
+    public Player player;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            playerContorller.onSightEnemy.Add(collision.GetComponent<Enemy>());
+            player.onSightEnemy.Add(collision.GetComponent<Enemy>());
         }
     }
 
@@ -18,11 +18,11 @@ public class PlayerSight : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            playerContorller.onSightEnemy.Remove(collision.GetComponent<Enemy>());
-            if(collision.GetComponent<Enemy>() == playerContorller.selectedEnemy)
+            player.onSightEnemy.Remove(collision.GetComponent<Enemy>());
+            if(collision.GetComponent<Enemy>() == player.selectedEnemy)
             {
-                playerContorller.selectedEnemy = null;
-                Destroy(playerContorller.clone);
+                player.selectedEnemy = null;
+                Destroy(player.clone);
             }
         }
     }

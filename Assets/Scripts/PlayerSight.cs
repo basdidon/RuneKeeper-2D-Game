@@ -22,6 +22,7 @@ public class PlayerSight : MonoBehaviour
             if(collision.GetComponent<Enemy>() == playerContorller.selectedEnemy)
             {
                 playerContorller.selectedEnemy = null;
+                Destroy(playerContorller.clone);
             }
         }
     }

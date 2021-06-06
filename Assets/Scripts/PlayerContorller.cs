@@ -7,20 +7,27 @@ using System.Collections.Generic;
 public class PlayerContorller : MonoBehaviour
 {
     public enum CharacterState {Idle, Moving, Attacking, CastingSpell, Stun, Dead};
-    public enum Direction {N, NW, W, SW, S, SE, E, NE};
 
     public PlayerControls controls;
     public CharacterState playerState = CharacterState.Idle;
-    public Direction playerDirection = Direction.S;
+    
+    public Vector2 direction = new Vector2(1,0);
+
+    public bool isDebug;
+
     public Vector3 mousePosition;
     public Vector2 movement;
-    public float speed = 10f;
-    public Rigidbody2D playerRigidbody;
+
+    public float speed = 5f;
+    private Rigidbody2D playerRigidbody;
     public bool isCastSpell;
 
     public List<Enemy> onSightEnemy = new List<Enemy>();
     public Enemy selectedEnemy;
-    
+    public GameObject crosshair;
+    public GameObject clone;
+
+    public int index;
 
     /*cursor
     //public Texture2D cursorTexture;
@@ -54,31 +61,49 @@ public class PlayerContorller : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
+    private void Update()
+    {
+
+    }
+
     private void FixedUpdate()
     {
-        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
-        Debug.DrawRay(transform.position, forward, Color.green);
-        Debug.Log("Movement : " + controls.Player.Movement.phase);
-        Debug.Log("Interaction : " + controls.Player.Interaction.phase);
-        Debug.Log("Attack : " + controls.Player.Attack.phase);
+        if (isDebug)
+        {
+            Debug.Log("Movement : " + controls.Player.Movement.phase);
+            Debug.Log("Interaction : " + controls.Player.Interaction.phase);
+            Debug.Log("Attack : " + controls.Player.Attack.phase);
+        }
+
+        if(selectedEnemy != null)
+        {
+            direction = (selectedEnemy.transform.position - transform.position).normalized;
+        }
+        else if (movement != Vector2.zero)
+        {
+            direction = movement.normalized;
+        }
+
+        Debug.DrawRay(transform.position, direction, Color.yellow);
+        playerRigidbody.velocity = movement * speed;
     }
 
     public void OnMove()
     {
-        movement = controls.Player.Movement.ReadValue<Vector2>();    
+        movement = controls.Player.Movement.ReadValue<Vector2>();
     }
 
     public void OnInteraction()
     {
-        
-        Debug.Log("z");
+        ChangeTarget(true);
+        //Debug.Log("z");
     }
 
     public void OnAttack()
     {
         if(selectedEnemy != null)
         {
-            Debug.Log("Do Attack");
+            //Debug.Log("Do Attack");
         }
         else
         {
@@ -100,28 +125,90 @@ public class PlayerContorller : MonoBehaviour
 
     public void OnQuickMove()
     {
-        if (selectedEnemy != null || movement == Vector2.zero)
+        if (movement != Vector2.zero)
         {
-            //dash to facing direction
+            //dash to movement direction
         }
         else
         {
-            //dash to movement direction
+            if (selectedEnemy != null)
+            {
+                //dash to backward
+            }
+            else
+            {
+                //dash to forward
+            }
         }
     }
 
     private void FindNearestEnemy()
     {
-        int minDistance = 100;
+        float minDistance = 100;
         Enemy selectedEnemy = null;
-        for(int i = 0; i < onSightEnemy.Count; i++)
+
+        if (onSightEnemy.Count > 0)
         {
-            if (Vector2.Distance(onSightEnemy[i].transform.position, transform.position) < minDistance)
+            for(int i = 0; i < onSightEnemy.Count; i++)
             {
-                selectedEnemy = onSightEnemy[i];
+                if (Vector2.Distance(onSightEnemy[i].transform.position, transform.position) < minDistance)
+                {
+                    selectedEnemy = onSightEnemy[i];
+                    minDistance = Vector2.Distance(onSightEnemy[i].transform.position, transform.position);
+                }
             }
+            this.selectedEnemy = selectedEnemy;
+            clone = Instantiate<GameObject>(crosshair, selectedEnemy.transform);
         }
-        this.selectedEnemy = selectedEnemy;
+        else
+        {
+            Debug.Log("No enemy in range");
+        }
+    }
+
+    public void ChangeTarget(bool isNextTarget)
+    {
+        if(selectedEnemy != null)
+        {
+            for (int i = 0; i < onSightEnemy.Count; i++)
+            {
+                if (selectedEnemy == onSightEnemy[i])
+                {
+                    if (isNextTarget)
+                    {
+                        if (i < onSightEnemy.Count-1)
+                        {
+                            selectedEnemy = onSightEnemy[i + 1];
+                            break;
+                        }
+                        else
+                        {
+                            selectedEnemy = onSightEnemy[0];
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (i > 0)
+                        {
+                            selectedEnemy = onSightEnemy[i - 1];
+                            break;
+                        }
+                        else
+                        {
+                            selectedEnemy = onSightEnemy[onSightEnemy.Count - 1];
+                            break;
+                        }
+                    }
+                }
+            }
+            clone.transform.parent = selectedEnemy.transform;
+            clone.transform.localPosition = Vector2.zero;
+        }
+        else
+        {
+            FindNearestEnemy();
+        }
     }
 
     //input

@@ -5,7 +5,18 @@ using System.Collections.Generic;
 
 
 public class Player : MonoBehaviour
-{
+{    
+    [Header("PlayerStat")]
+    #region PlayerStat
+
+    public float atk;
+    public float matk;
+    public float maxHp;
+    public float hpLeft;
+    public float maxMp;
+    public float mpLeft;
+    #endregion
+
     public enum CharacterState {Idle, Moving, Attacking, CastingSpell, Stun, Dead};
 
     public PlayerControls controls;
@@ -56,9 +67,13 @@ public class Player : MonoBehaviour
         controls.Player.Movement.performed += _ => OnMove();
         controls.Player.Interaction.performed += _ => OnInteraction();
         controls.Player.Attack.performed += _ => OnAttack();
+        controls.Player.DebugButton.performed += _ => OnDebugButton();
 
         //Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
         playerRigidbody = GetComponent<Rigidbody2D>();
+
+        hpLeft = maxHp;
+        mpLeft = maxMp;
     }
 
     private void Update()
@@ -103,6 +118,7 @@ public class Player : MonoBehaviour
     {
         if(selectedEnemy == null){ FindNearestEnemy();}
         //Debug.Log("Do Attack");
+
     }
 
     public virtual void OnCastspell()
@@ -197,6 +213,11 @@ public class Player : MonoBehaviour
         {
             FindNearestEnemy();
         }
+    }
+
+    public void OnDebugButton()
+    {
+        selectedEnemy.DealDamage(10);
     }
 
     //input

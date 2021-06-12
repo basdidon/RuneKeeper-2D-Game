@@ -89,6 +89,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""DebugButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""b746a4db-8665-447a-be9a-af38e5684ebe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -256,6 +264,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ddca420a-26f9-4d5d-b552-ff5b33599901"",
+                    ""path"": ""<Keyboard>/backslash"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DebugButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -307,6 +326,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_DebugButton = m_Player.FindAction("DebugButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -365,6 +385,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Interaction;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_DebugButton;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -378,6 +399,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @DebugButton => m_Wrapper.m_Player_DebugButton;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -414,6 +436,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @DebugButton.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebugButton;
+                @DebugButton.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebugButton;
+                @DebugButton.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebugButton;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -445,6 +470,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @DebugButton.started += instance.OnDebugButton;
+                @DebugButton.performed += instance.OnDebugButton;
+                @DebugButton.canceled += instance.OnDebugButton;
             }
         }
     }
@@ -487,5 +515,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnDebugButton(InputAction.CallbackContext context);
     }
 }
